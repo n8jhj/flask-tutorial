@@ -12,13 +12,22 @@
         <h1>Flaskr</h1>
         <ul>
             {% if g.user %}
-                <li></li>
-                <li></li>
+                <li><span>{{ g.user['username'] }}</span></li>
+                <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
             {% else %}
-                <li></li>
-                <li></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
             {% endif %}
         </ul>
     </nav>
+    <section>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </section>
 </body>
 </html>
